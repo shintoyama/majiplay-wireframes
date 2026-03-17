@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>取り置きサービス ワイヤーフレーム</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #2c3e50 0%, #3d5166 100%);
+      color: #fff;
+      padding: 48px 24px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 1.8rem; font-weight: bold; margin-bottom: 8px; }
+    .hero p { color: #bdc3c7; font-size: 0.95rem; }
+    .flow-section {
+      background: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .flow-section h2 { font-size: 1rem; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
+    .scope-badge {
+      display: inline-block;
+      background: #e8f4fd;
+      color: #1a6ea8;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div style="font-size:2.5rem;margin-bottom:12px;">📦</div>
+  <h1>取り置きサービス ワイヤーフレーム</h1>
+  <p>神戸物産（業務スーパー）初期導入スコープ｜店舗スタッフ画面</p>
+  <div style="margin-top:12px;">
+    <span class="badge bg-secondary me-2">Bootstrap 5</span>
+    <span class="badge bg-secondary me-2">HTML / CSS / JS</span>
+    <span class="badge bg-secondary">GitHub Pages</span>
+  </div>
+</div>
+
+<div class="wf-main">
+
+  <!-- スコープ説明 -->
+  <div class="flow-section">
+    <h2>📋 このワイヤーフレームについて</h2>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div style="background:#f8f9fa;border-radius:8px;padding:16px;">
+          <div style="font-weight:bold;margin-bottom:8px;">対象スコープ</div>
+          <ul style="font-size:0.85rem;margin:0;padding-left:18px;color:#495057;">
+            <li>神戸物産（業務スーパー）の<br>初期導入スコープ</li>
+            <li>電話予約を基本とした<br>店舗スタッフ操作フロー</li>
+            <li>ユーザー（消費者）画面は<br>今回スコープ外</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="background:#f8f9fa;border-radius:8px;padding:16px;">
+          <div style="font-weight:bold;margin-bottom:8px;">利用者</div>
+          <ul style="font-size:0.85rem;margin:0;padding-left:18px;color:#495057;">
+            <li>店舗スタッフ（電話対応・来客対応）</li>
+            <li>本部（予約状況確認・CSV出力）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div style="background:#f8f9fa;border-radius:8px;padding:16px;">
+          <div style="font-weight:bold;margin-bottom:8px;">特記事項</div>
+          <ul style="font-size:0.85rem;margin:0;padding-left:18px;color:#495057;">
+            <li>商品数が最大30万件のため<br>検索性が重要</li>
+            <li>本人確認は電話番号・氏名が基本</li>
+            <li>予約番号の代わりに電話番号で照会</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 基本フロー -->
+  <div class="flow-section">
+    <h2>🔄 基本フロー（神戸物産スコープ）</h2>
+    <div class="d-flex align-items-center flex-wrap gap-2" style="font-size:0.85rem;">
+      <div style="background:#e8f4fd;border:1px solid #b8daff;border-radius:6px;padding:8px 14px;text-align:center;">
+        📞<br><strong>電話が来る</strong>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div style="background:#e8f4fd;border:1px solid #b8daff;border-radius:6px;padding:8px 14px;text-align:center;">
+        🔍<br><strong>商品検索・選択</strong>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div style="background:#e8f4fd;border:1px solid #b8daff;border-radius:6px;padding:8px 14px;text-align:center;">
+        📝<br><strong>予約入力</strong>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div style="background:#e8f4fd;border:1px solid #b8daff;border-radius:6px;padding:8px 14px;text-align:center;">
+        🖨️<br><strong>控え印刷（来店時）</strong>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div style="background:#e8f4fd;border:1px solid #b8daff;border-radius:6px;padding:8px 14px;text-align:center;">
+        🔍<br><strong>来店時に電話番号検索</strong>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div style="background:#d4edda;border:1px solid #c3e6cb;border-radius:6px;padding:8px 14px;text-align:center;">
+        ✅<br><strong>受け取り完了</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- 画面一覧 -->
+  <h2 style="font-size:1.1rem;font-weight:bold;color:#2c3e50;margin-bottom:16px;">🖥️ 画面一覧</h2>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12">
+      <div style="font-size:0.8rem;font-weight:bold;color:#6c757d;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:12px;">
+        店舗スタッフ画面（staffロール）
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <a href="staff/order-list.html" class="screen-card">
+        <div class="screen-icon">📋</div>
+        <div class="scope-badge">神戸物産スコープ</div>
+        <h5>取り置き一覧</h5>
+        <p>本日・今後の取り置き予約を一覧で確認。ステータスやフィルタで絞り込み可能。</p>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="staff/order-new.html" class="screen-card">
+        <div class="screen-icon">📝</div>
+        <div class="scope-badge">神戸物産スコープ</div>
+        <h5>新規取り置き入力</h5>
+        <p>電話受付時に店舗スタッフが入力。商品検索→客情報入力→受け取り日指定の流れ。</p>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="staff/order-detail.html" class="screen-card">
+        <div class="screen-icon">📄</div>
+        <div class="scope-badge">神戸物産スコープ</div>
+        <h5>取り置き詳細・変更</h5>
+        <p>予約内容の確認・変更・キャンセル。受け取り完了操作もここから。</p>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="staff/order-search.html" class="screen-card">
+        <div class="screen-icon">🔍</div>
+        <div class="scope-badge">神戸物産スコープ</div>
+        <h5>予約検索（本人確認）</h5>
+        <p>来店時に電話番号・氏名で予約を照会。同一番号に複数予約があるケースも考慮。</p>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="staff/print.html" class="screen-card">
+        <div class="screen-icon">🖨️</div>
+        <div class="scope-badge">神戸物産スコープ</div>
+        <h5>印刷（予約リスト・予約札・お客さま控え）</h5>
+        <p>店頭準備用の予約リスト・商品に貼る予約札・お客様に渡す控えを印刷。</p>
+      </a>
+    </div>
+
+  </div>
+
+  <div style="font-size:0.8rem;color:#adb5bd;text-align:center;margin-top:32px;padding-bottom:32px;">
+    取り置きサービス ワイヤーフレーム ／ デジクルプラス ／ 神戸物産初期導入スコープ
+  </div>
+</div>
+
+<div class="annotation-panel">
+  <div class="annotation-toggle" onclick="toggleAnnotation()">
+    💡 このページについて <span class="chevron">▲</span>
+  </div>
+  <div class="annotation-body">
+    <strong>画面一覧（トップページ）</strong>
+    <ul>
+      <li>取り置きサービスの全画面への入口</li>
+      <li>基本フローを図示し、画面間の関係性を整理</li>
+      <li>神戸物産スコープに限定した画面のみ掲載</li>
+    </ul>
+    <div class="note-section">
+      今回スコープ外：消費者の予約画面、テナント管理画面（商品マスタ登録・設問設定）は将来フェーズ
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>

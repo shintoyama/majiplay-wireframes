@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>取り置き一覧 | 取り置きサービス</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ヘッダー -->
+<div class="wf-header">
+  <span style="font-size:1.2rem;">📦</span>
+  <span class="service-name">取り置きサービス</span>
+  <span class="store-name">🏪 業務スーパー 梅田店</span>
+  <div class="nav-links">
+    <a href="order-list.html" class="active">取り置き一覧</a>
+    <a href="order-new.html">新規登録</a>
+    <a href="order-search.html">予約検索</a>
+    <a href="print.html">印刷</a>
+  </div>
+</div>
+
+<!-- ページタイトル -->
+<div class="wf-page-title">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="../index.html" style="color:#6c757d;">ホーム</a></li>
+      <li class="breadcrumb-item active">取り置き一覧</li>
+    </ol>
+  </nav>
+  <h1>取り置き一覧</h1>
+  <div class="ms-auto">
+    <a href="order-new.html" class="btn btn-wf-primary btn-sm">
+      ＋ 新規取り置き登録
+    </a>
+  </div>
+</div>
+
+<div class="wf-main">
+
+  <!-- 日付・フィルター -->
+  <div class="search-box">
+    <div class="row g-2 align-items-end">
+      <div class="col-md-2">
+        <label class="wf-form-label">受け取り日</label>
+        <input type="date" class="form-control form-control-sm" value="2024-03-15">
+      </div>
+      <div class="col-md-2">
+        <label class="wf-form-label">ステータス</label>
+        <select class="form-select form-select-sm">
+          <option value="">すべて</option>
+          <option value="pending" selected>受付中</option>
+          <option value="confirmed">確認済み</option>
+          <option value="received">受け取り済み</option>
+          <option value="cancelled">キャンセル</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="wf-form-label">商品名・お客様名・電話番号</label>
+        <input type="text" class="form-control form-control-sm" placeholder="キーワードで絞り込み...">
+      </div>
+      <div class="col-md-auto">
+        <button class="btn btn-outline-secondary btn-sm">🔍 絞り込む</button>
+        <button class="btn btn-link btn-sm text-muted">クリア</button>
+      </div>
+      <div class="col-md-auto ms-md-auto">
+        <a href="print.html" class="btn btn-outline-secondary btn-sm">🖨️ 予約リスト印刷</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- サマリーカード -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="wf-card text-center" style="padding:16px;">
+        <div style="font-size:0.78rem;color:#6c757d;margin-bottom:4px;">本日の取り置き</div>
+        <div style="font-size:2rem;font-weight:bold;color:#2c3e50;">12</div>
+        <div style="font-size:0.75rem;color:#6c757d;">件</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="wf-card text-center" style="padding:16px;">
+        <div style="font-size:0.78rem;color:#6c757d;margin-bottom:4px;">受付中</div>
+        <div style="font-size:2rem;font-weight:bold;color:#17a2b8;">8</div>
+        <div style="font-size:0.75rem;color:#6c757d;">件</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="wf-card text-center" style="padding:16px;">
+        <div style="font-size:0.78rem;color:#6c757d;margin-bottom:4px;">受け取り済み</div>
+        <div style="font-size:2rem;font-weight:bold;color:#28a745;">3</div>
+        <div style="font-size:0.75rem;color:#6c757d;">件</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="wf-card text-center" style="padding:16px;">
+        <div style="font-size:0.78rem;color:#6c757d;margin-bottom:4px;">期限切れ予定</div>
+        <div style="font-size:2rem;font-weight:bold;color:#dc3545;">1</div>
+        <div style="font-size:0.75rem;color:#6c757d;">件</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 一覧テーブル -->
+  <div class="wf-card">
+    <div class="d-flex align-items-center mb-3">
+      <div class="wf-card-title mb-0">取り置き一覧（2024/03/15）</div>
+      <small class="text-muted ms-2">8件表示</small>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table wf-table">
+        <thead>
+          <tr>
+            <th style="width:140px;">予約ID</th>
+            <th>お客様名</th>
+            <th>電話番号</th>
+            <th>商品</th>
+            <th class="text-center">数量</th>
+            <th>受け取り希望日</th>
+            <th>ステータス</th>
+            <th>登録日時</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onclick="location.href='order-detail.html'">
+            <td><small class="text-muted">H-2024-0315-001</small></td>
+            <td><strong>田中 花子</strong></td>
+            <td>090-1234-5678</td>
+            <td>国産牛ロース薄切り 400g</td>
+            <td class="text-center">2</td>
+            <td>2024/03/15</td>
+            <td><span class="badge badge-confirmed">受付中</span></td>
+            <td><small class="text-muted">03/12 14:23</small></td>
+            <td>
+              <a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a>
+            </td>
+          </tr>
+          <tr onclick="location.href='order-detail.html'">
+            <td><small class="text-muted">H-2024-0315-002</small></td>
+            <td><strong>佐藤 次郎</strong></td>
+            <td>080-9876-5432</td>
+            <td>業務用チーズ 1kg</td>
+            <td class="text-center">1</td>
+            <td>2024/03/15</td>
+            <td><span class="badge badge-confirmed">受付中</span></td>
+            <td><small class="text-muted">03/12 15:10</small></td>
+            <td>
+              <a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a>
+            </td>
+          </tr>
+          <tr onclick="location.href='order-detail.html'" style="background:#fff8f8;">
+            <td><small class="text-muted">H-2024-0314-003</small></td>
+            <td><strong>鈴木 太郎</strong></td>
+            <td>070-1111-2222</td>
+            <td>フランス産バター 500g</td>
+            <td class="text-center">3</td>
+            <td><span style="color:#dc3545;font-weight:bold;">2024/03/14 ⚠️期限切れ</span></td>
+            <td><span class="badge badge-confirmed">受付中</span></td>
+            <td><small class="text-muted">03/11 11:30</small></td>
+            <td>
+              <a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a>
+            </td>
+          </tr>
+          <tr onclick="location.href='order-detail.html'" style="opacity:0.6;">
+            <td><small class="text-muted">H-2024-0315-004</small></td>
+            <td><strong>山田 美咲</strong></td>
+            <td>090-3333-4444</td>
+            <td>業務用ぶどうジュース 1L×6本</td>
+            <td class="text-center">1</td>
+            <td>2024/03/15</td>
+            <td><span class="badge badge-received">受け取り済み</span></td>
+            <td><small class="text-muted">03/13 09:45</small></td>
+            <td>
+              <a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a>
+            </td>
+          </tr>
+          <tr onclick="location.href='order-detail.html'">
+            <td><small class="text-muted">H-2024-0315-005</small></td>
+            <td><strong>中村 一郎</strong></td>
+            <td>080-5555-6666</td>
+            <td>冷凍ピザ マルゲリータ 4枚入</td>
+            <td class="text-center">4</td>
+            <td>2024/03/15</td>
+            <td><span class="badge badge-confirmed">受付中</span></td>
+            <td><small class="text-muted">03/13 16:00</small></td>
+            <td>
+              <a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a>
+            </td>
+          </tr>
+          <tr onclick="location.href='order-detail.html'">
+            <td><small class="text-muted">H-2024-0315-006</small></td>
+            <td><strong>小林 恵子</strong></td>
+            <td>090-7777-8888</td>
+            <td>オーストラリア産 牛バラ 1kg</td>
+            <td class="text-center">2</td>
+            <td>2024/03/16</td>
+            <td><span class="badge badge-pending" style="background:#6f42c1;color:#fff;">新規受付</span></td>
+            <td><small class="text-muted">03/15 10:12</small></td>
+            <td>
+              <a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ページネーション -->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <small class="text-muted">全 23 件中 1〜6 件を表示</small>
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled"><a class="page-link">前へ</a></li>
+          <li class="page-item active"><a class="page-link">1</a></li>
+          <li class="page-item"><a class="page-link">2</a></li>
+          <li class="page-item"><a class="page-link">3</a></li>
+          <li class="page-item"><a class="page-link">次へ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</div>
+
+<!-- アノテーション -->
+<div class="annotation-panel">
+  <div class="annotation-toggle" onclick="toggleAnnotation()">
+    💡 このページについて <span class="chevron">▲</span>
+  </div>
+  <div class="annotation-body">
+    <strong>取り置き一覧画面</strong>
+    <ul>
+      <li>店舗スタッフが日々確認するメイン画面</li>
+      <li>デフォルトは「本日の受け取り日」でフィルター済みの状態</li>
+      <li>受け取り期限切れの予約を赤くハイライトして注意喚起</li>
+      <li>件数サマリーで全体状況をひと目で把握</li>
+    </ul>
+    <div class="note-section">
+      <strong>要確認：</strong>期限切れ予約の自動キャンセルをするか、スタッフが手動でキャンセルするかの運用を決める必要があります。
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/main.js"></script>
+</body>
+</html>

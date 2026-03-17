@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約検索（本人確認） | 取り置きサービス</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- ヘッダー -->
+<div class="wf-header">
+  <span style="font-size:1.2rem;">📦</span>
+  <span class="service-name">取り置きサービス</span>
+  <span class="store-name">🏪 業務スーパー 梅田店</span>
+  <div class="nav-links">
+    <a href="order-list.html">取り置き一覧</a>
+    <a href="order-new.html">新規登録</a>
+    <a href="order-search.html" class="active">予約検索</a>
+    <a href="print.html">印刷</a>
+  </div>
+</div>
+
+<!-- ページタイトル -->
+<div class="wf-page-title">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="../index.html" style="color:#6c757d;">ホーム</a></li>
+      <li class="breadcrumb-item active">予約検索（本人確認）</li>
+    </ol>
+  </nav>
+  <h1>予約検索（本人確認）</h1>
+</div>
+
+<div class="wf-main">
+
+  <!-- 利用シーン説明 -->
+  <div class="alert alert-info d-flex gap-2 mb-4" style="font-size:0.88rem;">
+    <span style="font-size:1.2rem;">ℹ️</span>
+    <div>
+      <strong>このページの使い方：</strong>
+      お客様が来店された際、電話番号やお名前で取り置き予約を照会します。
+      予約番号がなくても、電話番号・氏名から予約を特定できます。
+    </div>
+  </div>
+
+  <!-- 検索フォーム -->
+  <div class="wf-card">
+    <div class="wf-card-title">検索条件</div>
+
+    <!-- タブ切り替え -->
+    <ul class="nav nav-tabs mb-4" id="searchTab">
+      <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#phone-search">
+          📞 電話番号で検索
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#name-search">
+          👤 氏名で検索
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#id-search">
+          🔢 予約IDで検索
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- 電話番号検索 -->
+      <div class="tab-pane fade show active" id="phone-search">
+        <div class="row g-2 align-items-end">
+          <div class="col-md-4">
+            <label class="wf-form-label">電話番号</label>
+            <input type="tel" class="form-control" placeholder="例：090-1234-5678" id="phone-input"
+              style="font-size:1.1rem;letter-spacing:0.05em;">
+            <small class="text-muted">ハイフンあり・なし どちらでも検索できます</small>
+          </div>
+          <div class="col-md-auto">
+            <button class="btn btn-wf-primary" onclick="doPhoneSearch()">
+              🔍 検索する
+            </button>
+          </div>
+        </div>
+
+        <!-- よく使う操作のヒント -->
+        <div class="mt-3 p-3" style="background:#f8f9fa;border-radius:6px;font-size:0.82rem;color:#6c757d;">
+          💡 <strong>ヒント：</strong>同じ電話番号で複数の取り置きがある場合、すべて表示されます。お客様に内容をご確認の上、対応してください。
+        </div>
+      </div>
+
+      <!-- 氏名検索 -->
+      <div class="tab-pane fade" id="name-search">
+        <div class="row g-2 align-items-end">
+          <div class="col-md-3">
+            <label class="wf-form-label">お客様名</label>
+            <input type="text" class="form-control" placeholder="例：田中 花子">
+          </div>
+          <div class="col-md-3">
+            <label class="wf-form-label">フリガナ</label>
+            <input type="text" class="form-control" placeholder="例：タナカ">
+          </div>
+          <div class="col-md-auto">
+            <button class="btn btn-wf-primary" onclick="doPhoneSearch()">
+              🔍 検索する
+            </button>
+          </div>
+        </div>
+        <small class="text-muted mt-2 d-block">部分一致で検索します</small>
+      </div>
+
+      <!-- 予約ID検索 -->
+      <div class="tab-pane fade" id="id-search">
+        <div class="row g-2 align-items-end">
+          <div class="col-md-4">
+            <label class="wf-form-label">予約ID</label>
+            <input type="text" class="form-control" placeholder="例：H-2024-0315-001"
+              style="font-family:monospace;">
+          </div>
+          <div class="col-md-auto">
+            <button class="btn btn-wf-primary" onclick="doPhoneSearch()">
+              🔍 検索する
+            </button>
+          </div>
+        </div>
+        <small class="text-muted mt-2 d-block">神戸物産では電話番号検索が主な運用になる想定です</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- 検索結果 -->
+  <div id="search-results">
+    <!-- JS で描画 -->
+  </div>
+
+  <!-- 検索前のデフォルト表示 -->
+  <div id="default-view">
+    <div class="wf-card text-center" style="padding:48px;color:#adb5bd;">
+      <div style="font-size:3rem;margin-bottom:12px;">🔍</div>
+      <div style="font-size:0.95rem;">電話番号やお名前を入力して<br>取り置き予約を検索してください</div>
+    </div>
+
+    <!-- 本日の受け取り予定（クイックアクセス） -->
+    <div class="wf-card">
+      <div class="wf-card-title">📋 本日の受け取り予定（未受け取り）</div>
+      <div class="table-responsive">
+        <table class="table wf-table">
+          <thead>
+            <tr>
+              <th>お客様名</th>
+              <th>電話番号</th>
+              <th>商品</th>
+              <th>数量</th>
+              <th>受け取り時間帯</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>田中 花子</strong></td>
+              <td>090-1234-5678</td>
+              <td>国産牛ロース薄切り 400g</td>
+              <td>2点</td>
+              <td>午後</td>
+              <td><a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a></td>
+            </tr>
+            <tr>
+              <td><strong>佐藤 次郎</strong></td>
+              <td>080-9876-5432</td>
+              <td>業務用チーズ 1kg</td>
+              <td>1点</td>
+              <td>指定なし</td>
+              <td><a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a></td>
+            </tr>
+            <tr>
+              <td><strong>中村 一郎</strong></td>
+              <td>080-5555-6666</td>
+              <td>冷凍ピザ マルゲリータ 4枚入</td>
+              <td>4点</td>
+              <td>夕方以降</td>
+              <td><a href="order-detail.html" class="btn btn-sm btn-outline-secondary">詳細</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- アノテーション -->
+<div class="annotation-panel">
+  <div class="annotation-toggle" onclick="toggleAnnotation()">
+    💡 このページについて <span class="chevron">▲</span>
+  </div>
+  <div class="annotation-body">
+    <strong>予約検索（本人確認）画面</strong>
+    <ul>
+      <li>お客様来店時のメイン操作画面</li>
+      <li>神戸物産は電話予約が基本のため、電話番号検索を第一タブに配置</li>
+      <li>同一電話番号に複数予約がある場合は警告を出して確認を促す</li>
+      <li>ページ下部に「本日の受け取り予定」を表示し、検索なしでも素早く対応可能</li>
+    </ul>
+    <div class="note-section">
+      <strong>要確認：</strong>電話番号が変わった場合の対応や、間違い電話予約の修正フローを運用で定義する必要があります。
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/main.js"></script>
+<script>
+  function doPhoneSearch() {
+    const phone = document.getElementById('phone-input')?.value || '';
+    document.getElementById('default-view').style.display = 'none';
+    searchByPhone(phone);
+  }
+</script>
+</body>
+</html>

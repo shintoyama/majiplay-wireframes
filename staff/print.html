@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>印刷 | 取り置きサービス</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/style.css" rel="stylesheet">
+  <style>
+    /* 印刷プレビュー共通 */
+    .print-frame {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
+      padding: 20px;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+    }
+    /* 予約札 */
+    .label-card {
+      border: 2px solid #2c3e50;
+      border-radius: 6px;
+      padding: 14px;
+      width: 220px;
+      display: inline-block;
+      margin: 6px;
+      vertical-align: top;
+      text-align: center;
+      font-size: 0.82rem;
+    }
+    .label-card .label-id {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: #6c757d;
+    }
+    .label-card .label-name {
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 6px 0;
+    }
+    .label-card .label-product {
+      font-size: 0.85rem;
+      border-top: 1px dashed #ccc;
+      border-bottom: 1px dashed #ccc;
+      padding: 6px 0;
+      margin: 6px 0;
+    }
+    /* お客さま控え */
+    .receipt-card {
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 20px;
+      width: 300px;
+      display: inline-block;
+      margin: 6px;
+      vertical-align: top;
+      font-size: 0.82rem;
+    }
+    .receipt-card .receipt-header {
+      text-align: center;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .receipt-card .receipt-store {
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+    .receipt-card .receipt-title {
+      font-size: 0.75rem;
+      color: #6c757d;
+    }
+    .receipt-card .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 0;
+      border-bottom: 1px dotted #f0f0f0;
+    }
+    .receipt-card .receipt-label {
+      color: #6c757d;
+      font-size: 0.78rem;
+    }
+    /* 印刷スタイル */
+    @media print {
+      .wf-header, .wf-page-title, .no-print, .annotation-panel { display: none !important; }
+      .print-section { display: block !important; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<div class="wf-header no-print">
+  <span style="font-size:1.2rem;">📦</span>
+  <span class="service-name">取り置きサービス</span>
+  <span class="store-name">🏪 業務スーパー 梅田店</span>
+  <div class="nav-links">
+    <a href="order-list.html">取り置き一覧</a>
+    <a href="order-new.html">新規登録</a>
+    <a href="order-search.html">予約検索</a>
+    <a href="print.html" class="active">印刷</a>
+  </div>
+</div>
+
+<!-- ページタイトル -->
+<div class="wf-page-title no-print">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="../index.html" style="color:#6c757d;">ホーム</a></li>
+      <li class="breadcrumb-item active">印刷</li>
+    </ol>
+  </nav>
+  <h1>印刷</h1>
+</div>
+
+<div class="wf-main">
+
+  <!-- 印刷タイプタブ -->
+  <ul class="nav nav-tabs mb-4 no-print" id="printTab">
+    <li class="nav-item">
+      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-list">
+        📋 予約リスト
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-label">
+        🏷️ 予約札（商品貼り付け用）
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-receipt">
+        📄 お客さま控え
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- ① 予約リスト -->
+    <div class="tab-pane fade show active" id="tab-list">
+      <div class="row g-3">
+        <div class="col-md-8">
+
+          <!-- 印刷設定 -->
+          <div class="wf-card no-print">
+            <div class="wf-card-title">印刷設定</div>
+            <div class="row g-2">
+              <div class="col-md-4">
+                <label class="wf-form-label">対象日</label>
+                <input type="date" class="form-control form-control-sm" value="2024-03-15">
+              </div>
+              <div class="col-md-4">
+                <label class="wf-form-label">ステータス</label>
+                <select class="form-select form-select-sm">
+                  <option>受付中のみ</option>
+                  <option>すべて</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="wf-form-label">並び順</label>
+                <select class="form-select form-select-sm">
+                  <option>受け取り時間帯順</option>
+                  <option>登録日時順</option>
+                  <option>お客様名順（あいうえお）</option>
+                </select>
+              </div>
+            </div>
+            <div class="mt-3">
+              <button class="btn btn-wf-primary btn-sm" onclick="window.print()">
+                🖨️ 印刷する
+              </button>
+            </div>
+          </div>
+
+          <!-- プレビュー -->
+          <div class="print-frame">
+            <div style="text-align:center;border-bottom:2px solid #2c3e50;padding-bottom:10px;margin-bottom:14px;">
+              <div style="font-size:1rem;font-weight:bold;">📦 取り置き予約リスト</div>
+              <div style="font-size:0.8rem;color:#6c757d;">業務スーパー 梅田店｜2024年3月15日（金）</div>
+            </div>
+            <table class="table table-sm table-bordered" style="font-size:0.8rem;">
+              <thead>
+                <tr style="background:#f8f9fa;">
+                  <th>#</th>
+                  <th>お客様名</th>
+                  <th>電話番号</th>
+                  <th>商品</th>
+                  <th>数量</th>
+                  <th>時間帯</th>
+                  <th>受渡</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>田中 花子</td>
+                  <td>090-1234-5678</td>
+                  <td>国産牛ロース薄切り 400g</td>
+                  <td>2</td>
+                  <td>午後</td>
+                  <td style="width:36px;text-align:center;">□</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>佐藤 次郎</td>
+                  <td>080-9876-5432</td>
+                  <td>業務用チーズ 1kg</td>
+                  <td>1</td>
+                  <td>—</td>
+                  <td style="text-align:center;">□</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>中村 一郎</td>
+                  <td>080-5555-6666</td>
+                  <td>冷凍ピザ マルゲリータ 4枚入</td>
+                  <td>4</td>
+                  <td>夕方以降</td>
+                  <td style="text-align:center;">□</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>山田 美咲</td>
+                  <td>090-3333-4444</td>
+                  <td>業務用ぶどうジュース 1L×6本</td>
+                  <td>1</td>
+                  <td>—</td>
+                  <td style="text-align:center;">□</td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="font-size:0.75rem;color:#6c757d;text-align:right;margin-top:6px;">
+              合計 4件 印刷日時：2024/03/15 08:30
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ② 予約札 -->
+    <div class="tab-pane fade" id="tab-label">
+      <div class="row g-3">
+        <div class="col-md-8">
+          <div class="wf-card no-print">
+            <div class="wf-card-title">印刷設定</div>
+            <div class="row g-2 align-items-end">
+              <div class="col-md-3">
+                <label class="wf-form-label">対象日</label>
+                <input type="date" class="form-control form-control-sm" value="2024-03-15">
+              </div>
+              <div class="col-md-3">
+                <label class="wf-form-label">1ページあたりの枚数</label>
+                <select class="form-select form-select-sm">
+                  <option>1枚</option>
+                  <option selected>4枚</option>
+                  <option>8枚</option>
+                </select>
+              </div>
+              <div class="col-md-auto">
+                <button class="btn btn-wf-primary btn-sm" onclick="window.print()">🖨️ 印刷する</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- プレビュー -->
+          <div class="print-frame">
+            <div style="font-size:0.78rem;color:#6c757d;margin-bottom:12px;">
+              予約札プレビュー（実際は商品に貼り付けます）
+            </div>
+            <div>
+              <div class="label-card">
+                <div class="label-id">H-2024-0315-001</div>
+                <div style="font-size:0.7rem;color:#6c757d;">取り置き予約</div>
+                <div class="label-name">田中 花子 様</div>
+                <div class="label-product">国産牛ロース薄切り 400g</div>
+                <div style="font-size:0.78rem;">数量：<strong>2点</strong></div>
+                <div style="font-size:0.78rem;color:#2c3e50;margin-top:6px;">
+                  受け取り：<strong>3/15（金）午後</strong>
+                </div>
+                <div style="font-size:0.7rem;color:#6c757d;margin-top:6px;">
+                  業務スーパー 梅田店
+                </div>
+              </div>
+
+              <div class="label-card">
+                <div class="label-id">H-2024-0315-002</div>
+                <div style="font-size:0.7rem;color:#6c757d;">取り置き予約</div>
+                <div class="label-name">佐藤 次郎 様</div>
+                <div class="label-product">業務用チーズ 1kg</div>
+                <div style="font-size:0.78rem;">数量：<strong>1点</strong></div>
+                <div style="font-size:0.78rem;color:#2c3e50;margin-top:6px;">
+                  受け取り：<strong>3/15（金）</strong>
+                </div>
+                <div style="font-size:0.7rem;color:#6c757d;margin-top:6px;">
+                  業務スーパー 梅田店
+                </div>
+              </div>
+
+              <div class="label-card">
+                <div class="label-id">H-2024-0315-004</div>
+                <div style="font-size:0.7rem;color:#6c757d;">取り置き予約</div>
+                <div class="label-name">中村 一郎 様</div>
+                <div class="label-product">冷凍ピザ マルゲリータ 4枚入</div>
+                <div style="font-size:0.78rem;">数量：<strong>4点</strong></div>
+                <div style="font-size:0.78rem;color:#2c3e50;margin-top:6px;">
+                  受け取り：<strong>3/15（金）夕方以降</strong>
+                </div>
+                <div style="font-size:0.7rem;color:#6c757d;margin-top:6px;">
+                  業務スーパー 梅田店
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ お客さま控え -->
+    <div class="tab-pane fade" id="tab-receipt">
+      <div class="row g-3">
+        <div class="col-md-8">
+          <div class="wf-card no-print">
+            <div class="wf-card-title">印刷設定</div>
+            <div class="row g-2 align-items-end">
+              <div class="col-md-4">
+                <label class="wf-form-label">対象の取り置き予約</label>
+                <select class="form-select form-select-sm">
+                  <option>H-2024-0315-001 田中 花子 様</option>
+                  <option>H-2024-0315-002 佐藤 次郎 様</option>
+                  <option>H-2024-0315-004 中村 一郎 様</option>
+                </select>
+              </div>
+              <div class="col-md-auto">
+                <button class="btn btn-wf-primary btn-sm" onclick="window.print()">🖨️ 印刷する</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- プレビュー -->
+          <div class="print-frame">
+            <div style="font-size:0.78rem;color:#6c757d;margin-bottom:12px;">
+              お客さま控えプレビュー（A4印刷後に切り分けて渡すか、来店時に手書きで渡すイメージ）
+            </div>
+
+            <div class="receipt-card">
+              <div class="receipt-header">
+                <div class="receipt-store">業務スーパー 梅田店</div>
+                <div class="receipt-title">📦 取り置き予約 お客さま控え</div>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">予約ID</span>
+                <span style="font-family:monospace;font-size:0.75rem;">H-2024-0315-001</span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">お客様名</span>
+                <span><strong>田中 花子 様</strong></span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">電話番号</span>
+                <span>090-1234-5678</span>
+              </div>
+              <div class="receipt-row" style="margin-top:6px;">
+                <span class="receipt-label">商品</span>
+                <span>国産牛ロース薄切り 400g</span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">数量</span>
+                <span>2点</span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">受け取り希望日</span>
+                <span>2024年3月15日（金）</span>
+              </div>
+              <div class="receipt-row">
+                <span class="receipt-label">受け取り時間帯</span>
+                <span>午後（12:00〜18:00）</span>
+              </div>
+              <div style="margin-top:10px;padding:8px;background:#fff9c4;border-radius:4px;font-size:0.75rem;color:#7a5c00;">
+                ※ ご来店の際は電話番号（090-1234-5678）をスタッフにお伝えください。
+              </div>
+              <div style="text-align:right;font-size:0.7rem;color:#adb5bd;margin-top:6px;">
+                発行：2024/03/12 14:23
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 no-print">
+          <div class="wf-card" style="font-size:0.85rem;">
+            <div class="wf-card-title">神戸物産スコープのメモ</div>
+            <ul style="padding-left:18px;line-height:1.8;color:#495057;">
+              <li>電話予約では控えをその場で渡せない</li>
+              <li>来店時（または予約入力後）に印刷して渡す想定</li>
+              <li>電話番号を控えに明記して来店時の照会に使う</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- アノテーション -->
+<div class="annotation-panel no-print">
+  <div class="annotation-toggle" onclick="toggleAnnotation()">
+    💡 このページについて <span class="chevron">▲</span>
+  </div>
+  <div class="annotation-body">
+    <strong>印刷画面（予約リスト・予約札・お客さま控え）</strong>
+    <ul>
+      <li>予約リスト：開店前に当日分を印刷して店頭準備に使う</li>
+      <li>予約札：商品に貼り付けて保管場所を管理する</li>
+      <li>お客さま控え：電話予約のため来店時に渡すイメージ</li>
+    </ul>
+    <div class="note-section">
+      <strong>要確認：</strong>予約札の1ページ当たりの枚数（1枚 or 4枚）は商品予約側でも要望があった項目。取り置きでも同様にオプション提供する想定。
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/main.js"></script>
+</body>
+</html>

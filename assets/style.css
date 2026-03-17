@@ -1,0 +1,265 @@
+/* ============================================
+   取り置きサービス ワイヤーフレーム 共通スタイル
+   ============================================ */
+
+body {
+  background: #f0f2f5;
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', sans-serif;
+  font-size: 15px;
+}
+
+/* ---- ヘッダー ---- */
+.wf-header {
+  background: #2c3e50;
+  color: #fff;
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.wf-header .service-name {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  color: #ecf0f1;
+}
+.wf-header .store-name {
+  font-size: 0.8rem;
+  background: #3d5166;
+  padding: 3px 10px;
+  border-radius: 12px;
+  color: #bdc3c7;
+}
+.wf-header .nav-links {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+.wf-header .nav-links a {
+  color: #bdc3c7;
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.wf-header .nav-links a:hover,
+.wf-header .nav-links a.active {
+  background: #3d5166;
+  color: #fff;
+}
+
+/* ---- サブヘッダー（ページタイトル） ---- */
+.wf-page-title {
+  background: #fff;
+  border-bottom: 1px solid #dee2e6;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.wf-page-title h1 {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin: 0;
+  color: #2c3e50;
+}
+.wf-page-title .breadcrumb {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+/* ---- メインコンテンツ ---- */
+.wf-main {
+  padding: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ---- カード ---- */
+.wf-card {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.wf-card-title {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* ---- ステータスバッジ ---- */
+.badge-pending   { background: #ffc107; color: #333; }
+.badge-confirmed { background: #17a2b8; color: #fff; }
+.badge-received  { background: #28a745; color: #fff; }
+.badge-cancelled { background: #dc3545; color: #fff; }
+.badge-expired   { background: #6c757d; color: #fff; }
+
+/* ---- テーブル ---- */
+.wf-table th {
+  background: #f8f9fa;
+  font-size: 0.82rem;
+  color: #6c757d;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.wf-table td {
+  vertical-align: middle;
+  font-size: 0.9rem;
+}
+.wf-table tbody tr:hover {
+  background: #f8faff;
+  cursor: pointer;
+}
+
+/* ---- フォーム ---- */
+.wf-form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 4px;
+}
+.required-mark::after {
+  content: " *";
+  color: #dc3545;
+}
+
+/* ---- ボタン ---- */
+.btn-wf-primary {
+  background: #2c3e50;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.btn-wf-primary:hover {
+  background: #1a252f;
+  color: #fff;
+}
+
+/* ---- アノテーションパネル ---- */
+.annotation-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 340px;
+  background: #fffde7;
+  border: 2px solid #f9a825;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  transition: all 0.2s;
+}
+.annotation-toggle {
+  background: #f9a825;
+  padding: 9px 14px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+.annotation-toggle .chevron {
+  margin-left: auto;
+  transition: transform 0.2s;
+}
+.annotation-toggle.collapsed .chevron {
+  transform: rotate(180deg);
+}
+.annotation-body {
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #4a3000;
+}
+.annotation-body.hidden {
+  display: none;
+}
+.annotation-body ul {
+  margin: 6px 0 0 0;
+  padding-left: 18px;
+}
+.annotation-body li {
+  margin-bottom: 4px;
+}
+.annotation-body .note-section {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #f9a825;
+  font-size: 0.8rem;
+  color: #7a5c00;
+}
+
+/* ---- 検索ボックス ---- */
+.search-box {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+/* ---- 印刷プレビュー ---- */
+.print-preview {
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/* ---- インデックスページ ---- */
+.screen-card {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.screen-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+  color: inherit;
+}
+.screen-card .screen-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.screen-card h5 {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+.screen-card p {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin: 0;
+}
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #adb5bd;
+  font-size: 1.5rem;
+  padding: 8px 0;
+}
